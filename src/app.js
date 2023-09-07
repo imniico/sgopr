@@ -36,9 +36,9 @@ socketServer.on("connection", (socket) => {
         console.log("Usuarios:", usernames);
     });
 
-    socket.on("finalizar", (data) => { // PRUEBA
+    socket.on("finalizar", (data) => { 
         const userToUpdate = usernames.find(user => user.user === data.username);
-        userToUpdate.puntaje = userToUpdate.puntaje + data.puntaje; // otra forma de calcular puntaje
+        userToUpdate.puntaje = data.puntaje;
 
         console.log("Finalizado:", userToUpdate);
         
@@ -50,9 +50,9 @@ socketServer.on("connection", (socket) => {
 
         usernames.sort(compararPorPuntaje);
         
-        console.log(data, usernames);
+        console.log("Resultados finales:", usernames);
 
-        const resultados = usernames.filter(item => item.user !== "adminsgo@");
+        const resultados = usernames.filter(item => item.user !== "NicoM99");
         socket.broadcast.emit("puntuaciones", resultados);
     })
 
